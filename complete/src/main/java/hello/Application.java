@@ -34,21 +34,7 @@ public class Application {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		
-		/*return args -> {
-			Quote quote = restTemplate.getForObject(
-					"http://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-			log.info(quote.toString());
-		};*/
-		
-		
-
 		return args -> {
-			
-			/*String xmlString = "<ENVELOPE><HEADER><VERSION>1</VERSION><TALLYREQUEST>Export</TALLYREQUEST><TYPE>Data</TYPE><ID>Trial Balance</ID></HEADER><BODY><DESC><STATICVARIABLES>"
-					+ "<EXPLODEFLAG>Yes</EXPLODEFLAG><SVEXPORTFORMAT>$$SysName:XML</SVEXPORTFORMAT></STATICVARIABLES></DESC></BODY></ENVELOPE>";*/
-			
-			//String xmlString = "<ENVELOPE><HEADER><VERSION>1</VERSION><TALLYREQUEST>Export</TALLYREQUEST><TYPE>Data</TYPE><ID>Balance Sheet</ID></HEADER><BODY><DESC><STATICVARIABLES>"
-			//		+ "<EXPLODEFLAG>Yes</EXPLODEFLAG><SVEXPORTFORMAT>$$SysName:XML</SVEXPORTFORMAT></STATICVARIABLES></DESC></BODY></ENVELOPE>";
 			
 			log.info("Reading config file............");
 			Map<String, String> configDetail = PropertyReader.getConfigDetail();
@@ -60,9 +46,9 @@ public class Application {
 			log.info("Reading config file completed.");
 			
 			//log.info("*********Config details***************");
-			configDetail.forEach((key, value) -> {
-			    //log.info("Key : " + key + "  || Value : " + value);
-			});
+			/*configDetail.forEach((key, value) -> {
+			    log.info("Key : " + key + "  || Value : " + value);
+			});*/
 			
 			List<String> requestList = PropertyReader.getRequestList(configDetail.get(Constants.REQUEST_LIST));
 			
@@ -83,9 +69,6 @@ public class Application {
 			    headers.setContentType(MediaType.APPLICATION_XML);
 			    HttpEntity<String> request = new HttpEntity<String>(configDetail.get(tallyRequest), headers);
 			    
-			    //HttpEntity<String> request = new HttpEntity<String>(xmlString, headers);
-			    //ResponseEntity<String> response = restTemplate.postForEntity("http://192.168.0.9:9000", request, String.class);
-			    //ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:9000", request, String.class);
 			    ResponseEntity<String> response = restTemplate.postForEntity(configDetail.get(Constants.TALLY_URL), request, String.class);
 			    
 			    //log.info(response.getBody().toString());
@@ -96,7 +79,6 @@ public class Application {
 			    
 			    request = new HttpEntity<String>(response.getBody().toString(), headers);
 		
-			    //response = restTemplate.postForEntity("http://localhost:8080/restws/services/tallyservice/tally", request, String.class);
 			    response = restTemplate.postForEntity(configDetail.get(Constants.AWS_URL), request, String.class);
 			    
 			    //log.info(response.getBody().toString());

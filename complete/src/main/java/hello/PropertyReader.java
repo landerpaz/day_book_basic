@@ -20,7 +20,7 @@ public class PropertyReader {
 		try {
 
 			//input = new FileInputStream(Constants.CONFIG_FILE);
-			input = new FileInputStream("/Users/ashokarulsamy/projects/poc/config.properties");
+			input = new FileInputStream("/Users/ashokarulsamy/projects/poc/day_book_basic_config.properties");
 			//input = new FileInputStream("c:/test_tally/config.properties");
 			
 			// load a properties file
@@ -30,8 +30,8 @@ public class PropertyReader {
 			
 			propertyData.put(Constants.AWS_URL, prop.getProperty(Constants.AWS_URL));
 			propertyData.put(Constants.TALLY_URL, prop.getProperty(Constants.TALLY_URL));
-			propertyData.put(Constants.REQUEST_XML_BALANCE_SHEET, prop.getProperty(Constants.REQUEST_XML_BALANCE_SHEET));
-			propertyData.put(Constants.REQUEST_XML_TRAIL_BALANCE, prop.getProperty(Constants.REQUEST_XML_TRAIL_BALANCE));
+			propertyData.put(Constants.REQUEST_XML_DAY_BOOK, prop.getProperty(Constants.REQUEST_XML_DAY_BOOK));
+			//propertyData.put(Constants.REQUEST_XML_TRAIL_BALANCE, prop.getProperty(Constants.REQUEST_XML_TRAIL_BALANCE));
 			propertyData.put(Constants.REQUEST_LIST, prop.getProperty(Constants.REQUEST_LIST));
 		
 		} catch (IOException ex) {
